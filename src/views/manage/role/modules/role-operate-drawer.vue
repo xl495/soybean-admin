@@ -4,6 +4,7 @@ import { useBoolean } from '@sa/hooks';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { enableStatusOptions } from '@/constants/business';
+import { fetchAddRole, fetchEditRole } from '@/service/api';
 import MenuAuthModal from './menu-auth-modal.vue';
 import ButtonAuthModal from './button-auth-modal.vue';
 
@@ -82,7 +83,26 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
-  // request
+
+  const sendData = {
+    roleName: model.roleName,
+    roleCode: model.roleCode,
+    roleDesc: model.roleDesc,
+    status: model.status
+  };
+
+  if (props.operateType === 'add') {
+    const { error } = await fetchAddRole(sendData);
+    if (error) {
+      return;
+    }
+  } else {
+    const { error } = await fetchEditRole(roleId.value, sendData);
+    if (error) {
+      return;
+    }
+  }
+
   window.$message?.success($t('common.updateSuccess'));
   closeDrawer();
   emit('submitted');

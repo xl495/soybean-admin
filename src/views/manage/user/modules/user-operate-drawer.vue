@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
-import { fetchGetAllRoles } from '@/service/api';
+import { fetchAddUser, fetchEditUser, fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 
@@ -76,16 +76,7 @@ async function getRoleOptions() {
       label: item.roleName,
       value: item.roleCode
     }));
-
-    // the mock data does not have the roleCode, so fill it
-    // if the real request, remove the following code
-    const userRoleOptions = model.userRoles.map(item => ({
-      label: item,
-      value: item
-    }));
-    // end
-
-    roleOptions.value = [...userRoleOptions, ...options];
+    roleOptions.value = [...options];
   }
 }
 
@@ -103,6 +94,17 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
+
+  if (props.operateType === 'add') {
+    // add
+    const { error } = await fetchAddUser(model);
+    if (error) return;
+  } else {
+    // edit
+    const { error } = await fetchEditUser(props.rowData?.id as number, model);
+    if (error) return;
+  }
+
   // request
   window.$message?.success($t('common.updateSuccess'));
   closeDrawer();

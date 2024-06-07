@@ -9,6 +9,32 @@ export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
   });
 }
 
+/** add role */
+export function fetchAddRole(data?: Api.SystemManage.AddRoleData) {
+  return request<Api.SystemManage.Role>({
+    url: '/systemManage/role',
+    method: 'post',
+    data
+  });
+}
+
+/** edit role */
+export function fetchEditRole(id: number, data?: Api.SystemManage.EditRoleData) {
+  return request<Api.SystemManage.Role>({
+    url: `/systemManage/role/${id}`,
+    method: 'put',
+    data
+  });
+}
+
+/** remove role */
+export function fetchRemoveRole(ids: number[]) {
+  return request({
+    url: `/systemManage/role`,
+    method: 'delete',
+    data: { ids }
+  });
+}
 /**
  * get all roles
  *
@@ -27,6 +53,24 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
     url: '/systemManage/getUserList',
     method: 'get',
     params
+  });
+}
+
+/** add user */
+export function fetchAddUser(data?: Api.SystemManage.AddUserData) {
+  return request<Api.SystemManage.User>({
+    url: '/systemManage/user',
+    method: 'post',
+    data
+  });
+}
+
+/** edit user */
+export function fetchEditUser(userId: number, data?: Api.SystemManage.EditUserData) {
+  return request<Api.SystemManage.User>({
+    url: `/systemManage/user/${userId}`,
+    method: 'put',
+    data
   });
 }
 

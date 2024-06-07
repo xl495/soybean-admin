@@ -105,6 +105,12 @@ declare namespace Api {
       Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
     >;
 
+    /** add role data */
+    type AddRoleData = CommonType.RecordNullable<Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'>>;
+
+    /** Edit role data */
+    type EditRoleData = CommonType.RecordNullable<Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'>>;
+
     /** role list */
     type RoleList = Common.PaginatingQueryRecord<Role>;
 
@@ -143,6 +149,16 @@ declare namespace Api {
 
     /** user list */
     type UserList = Common.PaginatingQueryRecord<User>;
+
+    /** add user */
+    type AddUserData = CommonType.RecordNullable<
+      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles'>
+    >;
+
+    /** Edit role data */
+    type EditUserData = CommonType.RecordNullable<
+      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles'>
+    >;
 
     /**
      * menu type
