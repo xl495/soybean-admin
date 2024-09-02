@@ -74,6 +74,17 @@ export function fetchEditUser(userId: number, data?: Api.SystemManage.EditUserDa
   });
 }
 
+/** edit user */
+export function fetchRemoveUser(ids: number[]) {
+  return request<Api.SystemManage.User>({
+    url: `/systemManage/user`,
+    method: 'delete',
+    data: {
+      ids
+    }
+  });
+}
+
 /** get menu list */
 export function fetchGetMenuList() {
   return request<Api.SystemManage.MenuList>({
@@ -95,5 +106,25 @@ export function fetchGetMenuTree() {
   return request<Api.SystemManage.MenuTree[]>({
     url: '/systemManage/getMenuTree',
     method: 'get'
+  });
+}
+
+/** get dict list */
+export function fetchGetDictList(params?: Api.SystemManage.DictSearchParams) {
+  return request<Api.SystemManage.DictList>({
+    url: '/systemManage/getDict',
+    method: 'get',
+    params
+  });
+}
+
+/** remove dict */
+export function fetchRemoveDict(ids: number[]) {
+  return request<Api.SystemManage.Dict>({
+    url: `/systemManage/user`,
+    method: 'delete',
+    data: {
+      ids
+    }
   });
 }

@@ -234,5 +234,26 @@ declare namespace Api {
       pId: number;
       children?: MenuTree[];
     };
+
+    /** dict */
+    type Dict = Common.CommonRecord<{
+      /** dict name */
+      dictName: string;
+      /** dict code */
+      dictCode: string;
+      /** dict description */
+      dictDesc: string;
+      /** isRoot */
+      isRoot: 0 | 1;
+      /** sort */
+      sort: number;
+    }>;
+
+    type DictSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Dict, 'dictName' | 'dictCode' | 'status'> & CommonSearchParams
+    >;
+
+    /** dict list */
+    type DictList = Common.PaginatingQueryRecord<Dict>;
   }
 }

@@ -601,6 +601,25 @@ declare namespace App {
               local: string;
             };
           };
+          dict: {
+            dictName: string;
+            dictDesc: string;
+            status: string;
+            title: string;
+            dictCode: string;
+            addDict: string;
+            editDict: string;
+            dictStatus: string;
+            form: {
+              dictName: string;
+              status: string;
+              dictCode: string;
+              dictDesc: string;
+            };
+          };
+        };
+        user: {
+          edit: string;
         };
       };
       form: {
@@ -611,6 +630,7 @@ declare namespace App {
         confirmPwd: FormMsg;
         code: FormMsg;
         email: FormMsg;
+        nickName: FormMsg;
       };
       dropdown: Record<Global.DropdownKey, string>;
       icon: {

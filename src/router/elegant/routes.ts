@@ -161,10 +161,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     props: true,
     meta: {
       title: 'iframe-page',
-      i18nKey: 'route.iframe-page',
-      constant: true,
-      hideInMenu: true,
-      keepAlive: true
+      i18nKey: 'route.iframe-page'
     }
   },
   {
@@ -191,6 +188,18 @@ export const generatedRoutes: GeneratedRoute[] = [
       roles: ['R_ADMIN']
     },
     children: [
+      {
+        name: 'manage_dict',
+        path: '/manage/dict',
+        component: 'view.manage_dict',
+        meta: {
+          title: 'manage_dict',
+          i18nKey: 'route.manage_dict',
+          icon: 'carbon:user-role',
+          order: 6,
+          roles: ['R_SUPER']
+        }
+      },
       {
         name: 'manage_menu',
         path: '/manage/menu',

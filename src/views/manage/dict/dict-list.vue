@@ -1,17 +1,17 @@
 <script setup lang="tsx">
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
-import { fetchGetUserList, fetchRemoveUser } from '@/service/api';
+import { fetchGetDictList, fetchRemoveDict } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
-import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import { enableStatusRecord } from '@/constants/business';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-import UserOperateDrawer from './modules/user-operate-drawer.vue';
-import UserSearch from './modules/user-search.vue';
+import DictOperateDrawer from './modules/dict-operate-drawer.vue';
+import DictSearch from './modules/dict-search.vue';
 
 const appStore = useAppStore();
 
 const { columns, columnChecks, data, getData, loading, mobilePagination, searchParams, resetSearchParams } = useTable({
-  apiFn: fetchGetUserList,
+  apiFn: fetchGetDictList,
   showTotal: true,
   apiParams: {
     current: 1,
@@ -19,11 +19,8 @@ const { columns, columnChecks, data, getData, loading, mobilePagination, searchP
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
     status: null,
-    userName: null,
-    userGender: null,
-    nickName: null,
-    userPhone: null,
-    userEmail: null
+    dictName: null,
+    dictCode: null
   },
   columns: () => [
     {
@@ -32,62 +29,28 @@ const { columns, columnChecks, data, getData, loading, mobilePagination, searchP
       width: 48
     },
     {
-      key: 'index',
-      title: $t('common.index'),
-      align: 'center',
-      width: 64
+      key: 'dictName',
+      title: $t('page.manage.dict.dictName'),
+      align: 'center'
     },
     {
-      key: 'userName',
-      title: $t('page.manage.user.userName'),
-      align: 'center',
-      minWidth: 100
+      key: 'dictCode',
+      title: $t('page.manage.dict.dictCode'),
+      align: 'center'
     },
     {
-      key: 'userGender',
-      title: $t('page.manage.user.userGender'),
+      key: 'dictDesc',
+      title: $t('page.manage.dict.dictDesc'),
       align: 'center',
-      width: 100,
-      render: row => {
-        if (row.userGender === null) {
-          return null;
-        }
-
-        const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
-          1: 'primary',
-          2: 'error'
-        };
-
-        const label = $t(userGenderRecord[row.userGender]);
-
-        return <NTag type={tagMap[row.userGender]}>{label}</NTag>;
-      }
-    },
-    {
-      key: 'nickName',
-      title: $t('page.manage.user.nickName'),
-      align: 'center',
-      minWidth: 100
-    },
-    {
-      key: 'userPhone',
-      title: $t('page.manage.user.userPhone'),
-      align: 'center',
-      width: 120
-    },
-    {
-      key: 'userEmail',
-      title: $t('page.manage.user.userEmail'),
-      align: 'center',
-      minWidth: 200
+      width: 100
     },
     {
       key: 'status',
-      title: $t('page.manage.user.userStatus'),
+      title: $t('page.manage.dict.status'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.status === null) {
+        if (row?.status === null) {
           return null;
         }
 
@@ -140,13 +103,13 @@ const {
 } = useTableOperate(data, getData);
 
 async function handleBatchDelete() {
-  const { error } = await fetchRemoveUser(checkedRowKeys.value.map(Number));
+  const { error } = await fetchRemoveDict(checkedRowKeys.value.map(Number));
   if (error) return;
   onBatchDeleted();
 }
 
 async function handleDelete(id: number) {
-  const { error } = await fetchRemoveUser([Number(id)]);
+  const { error } = await fetchRemoveDict([Number(id)]);
   if (error) return;
   onDeleted();
 }
@@ -157,9 +120,9 @@ function edit(id: number) {
 </script>
 
 <template>
-  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <UserSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
-    <NCard :title="$t('page.manage.user.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-600px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <DictSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
+    <NCard :title="$t('page.manage.dict.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <TableHeaderOperation
           v-model:columns="columnChecks"
@@ -174,16 +137,15 @@ function edit(id: number) {
         v-model:checked-row-keys="checkedRowKeys"
         :columns="columns"
         :data="data"
-        size="small"
         :flex-height="!appStore.isMobile"
-        :scroll-x="962"
+        :scroll-x="300"
         :loading="loading"
         remote
         :row-key="row => row.id"
         :pagination="mobilePagination"
         class="sm:h-full"
       />
-      <UserOperateDrawer
+      <DictOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"

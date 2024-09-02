@@ -178,6 +178,7 @@ const local: App.I18n.Schema = {
     'multi-menu_second': 'Menu Two',
     'multi-menu_second_child': 'Menu Two Child',
     'multi-menu_second_child_home': 'Menu Two Child Home',
+    manage_dict: 'Dict Manage',
     exception: 'Exception',
     exception_403: '403',
     exception_404: '404',
@@ -425,7 +426,26 @@ const local: App.I18n.Schema = {
           iconify: 'Iconify Icon',
           local: 'Local Icon'
         }
+      },
+      dict: {
+        dictName: 'Name',
+        dictDesc: 'Description',
+        status: 'Status',
+        title: 'Dict List',
+        dictCode: 'Code',
+        addDict: 'Add Dict',
+        editDict: 'EDit Dict',
+        dictStatus: 'Dict Status',
+        form: {
+          dictName: 'Please enter name',
+          status: 'Please select status',
+          dictCode: 'Please enter code',
+          dictDesc: 'Please enter description'
+        }
       }
+    },
+    user: {
+      edit: 'Edit User Profile'
     }
   },
   form: {
@@ -453,6 +473,10 @@ const local: App.I18n.Schema = {
     email: {
       required: 'Please enter email',
       invalid: 'Email format is incorrect'
+    },
+    nickName: {
+      required: 'Please enter nick name',
+      invalid: 'Nick name format is incorrect'
     }
   },
   dropdown: {

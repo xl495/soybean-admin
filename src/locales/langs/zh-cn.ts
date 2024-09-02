@@ -178,6 +178,7 @@ const local: App.I18n.Schema = {
     'multi-menu_second': '菜单二',
     'multi-menu_second_child': '菜单二子菜单',
     'multi-menu_second_child_home': '菜单二子菜单首页',
+    manage_dict: '字典管理',
     exception: '异常页',
     exception_403: '403',
     exception_404: '404',
@@ -425,7 +426,26 @@ const local: App.I18n.Schema = {
           iconify: 'iconify图标',
           local: '本地图标'
         }
+      },
+      dict: {
+        dictName: '字典名称',
+        dictDesc: '描述',
+        status: '状态',
+        title: '字典列表',
+        dictCode: '字典编码',
+        addDict: '新增字典',
+        editDict: '编辑字典',
+        dictStatus: '字典状态',
+        form: {
+          dictName: '请输入字典名称',
+          dictCode: '请输入字典编码',
+          status: '请选择状态',
+          dictDesc: '请输入描述'
+        }
       }
+    },
+    user: {
+      edit: '修改用户资料'
     }
   },
   form: {
@@ -453,6 +473,10 @@ const local: App.I18n.Schema = {
     email: {
       required: '请输入邮箱',
       invalid: '邮箱格式不正确'
+    },
+    nickName: {
+      required: '请输入昵称',
+      invalid: '昵称格式不正确'
     }
   },
   dropdown: {
